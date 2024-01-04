@@ -1,0 +1,699 @@
+
+
+{% assign start_manageLock = true %}
+{% if request.design_mode %}
+  {% assign start_manageLock = false %}
+{% endif %}  
+
+{% if start_manageLock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script> var Message_selector  = "#MainContent ,#nt_content" </script>
+
+    {% assign wsaio_sorted_rule =  %}
+    <script> var _url  = ""</script>
+    <script> var access_url  = ""</script>
+    {%- for field in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule = field | last %}
+        {% assign lock_content = wsaio_rule.manage_lock.content_name %}
+        {% assign wsaio__isEnabled = wsaio_rule.state %}
+        {% if wsaio__isEnabled == 'published' %}
+        {% assign applies_to = wsaio_rule.manage_lock.applies_to %}
+        {% if applies_to == 'all_customers' %}
+            {% if lock_content  == 'pages' %}
+            {% assign key = field | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% elsif lock_content  == 'url' %}
+            {% assign key = field | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% elsif applies_to  == 'loggedin_customers' %}
+            {% if lock_content  == 'pages' %}
+            {% assign key = field | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% elsif lock_content  == 'url' %}
+            {% assign key = field | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% elsif applies_to  == 'selected_customers' %}
+            {% if lock_content  == 'pages' %}
+            {% assign key = field | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% elsif lock_content  == 'url' %}
+            {% assign key = field | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+
+    {%- for field1 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule1 = field1 | last %}
+        {% assign lock_content1 = wsaio_rule1.manage_lock.content_name %}
+        {% assign wsaio__isEnabled1 = wsaio_rule1.state %}
+        {% if wsaio__isEnabled1 == 'published' %}
+        {% assign applies_to1 = wsaio_rule1.manage_lock.applies_to %}
+        {% if applies_to1 == 'all_customers' %}
+            {% if lock_content1  == 'entire_store' %}
+                {% assign key = field1 | first %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field2 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule2 = field2 | last %}
+        {% assign wsaio__isEnabled2 = wsaio_rule2.state %}
+        {% if wsaio__isEnabled2 == 'published' %}
+        {% assign applies_to2 = wsaio_rule2.manage_lock.applies_to %}
+        {% if applies_to2 == 'all_customers' %}
+            {% assign lock_content2 = wsaio_rule2.manage_lock.content_name %}
+            {% if lock_content2  == 'collections' %}
+                {% assign key = field2 | first %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field3 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule3 = field3 | last %}
+        {% assign wsaio__isEnabled3 = wsaio_rule3.state %}
+        {% if wsaio__isEnabled3 == 'published' %}
+        {% assign applies_to3 = wsaio_rule3.manage_lock.applies_to %}
+        {% if applies_to3 == 'all_customers' %}
+            {% assign lock_content3 = wsaio_rule3.manage_lock.content_name %}
+            {% if lock_content3  == 'products' %}
+            {% assign key = field3 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {%- for field1 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule1 = field1 | last %}
+        {% assign lock_content1 = wsaio_rule1.manage_lock.content_name %}
+        {% assign wsaio__isEnabled1 = wsaio_rule1.state %}
+        {% if wsaio__isEnabled1 == 'published' %}
+        {% assign applies_to1 = wsaio_rule1.manage_lock.applies_to %}
+        {% if applies_to1 == 'loggedin_customers' %}
+            {% if lock_content1  == 'entire_store' %}
+            {% assign key = field1 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field2 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule2 = field2 | last %}
+        {% assign wsaio__isEnabled2 = wsaio_rule2.state %}
+        {% if wsaio__isEnabled2 == 'published' %}
+        {% assign applies_to2 = wsaio_rule2.manage_lock.applies_to %}
+        {% if applies_to2 == 'loggedin_customers' %}
+            {% assign lock_content2 = wsaio_rule2.manage_lock.content_name %}
+            {% if lock_content2  == 'collections' %}
+            {% assign key = field2 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field3 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule3 = field3 | last %}
+        {% assign wsaio__isEnabled3 = wsaio_rule3.state %}
+        {% if wsaio__isEnabled3 == 'published' %}
+        {% assign applies_to3 = wsaio_rule3.manage_lock.applies_to %}
+        {% if applies_to3 == 'loggedin_customers' %}
+            {% assign lock_content3 = wsaio_rule3.manage_lock.content_name %}
+            {% if lock_content3  == 'products' %}
+            {% assign key = field3 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+
+
+    {%- for field1 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule1 = field1 | last %}
+        {% assign lock_content1 = wsaio_rule1.manage_lock.content_name %}
+        {% assign wsaio__isEnabled1 = wsaio_rule1.state %}
+        {% if wsaio__isEnabled1 == 'published' %}
+        {% assign applies_to1 = wsaio_rule1.manage_lock.applies_to %}
+        {% if applies_to1 == 'selected_customers' %}
+            {% if lock_content1  == 'entire_store' %}
+            {% assign key = field1 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field2 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule2 = field2 | last %}
+        {% assign wsaio__isEnabled2 = wsaio_rule2.state %}
+        {% if wsaio__isEnabled2 == 'published' %}
+        {% assign applies_to2 = wsaio_rule2.manage_lock.applies_to %}
+        {% if applies_to2 == 'selected_customers' %}
+            {% assign lock_content2 = wsaio_rule2.manage_lock.content_name %}
+            {% if lock_content2  == 'collections' %}
+            {% assign key = field2 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field3 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule3 = field3 | last %}
+
+        {% assign wsaio__isEnabled3 = wsaio_rule3.state %}
+        {% if wsaio__isEnabled3 == 'published' %}
+        {% assign applies_to3 = wsaio_rule3.manage_lock.applies_to %}
+        {% if applies_to3 == 'selected_customers' %}
+            {% assign lock_content3 = wsaio_rule3.manage_lock.content_name %}
+            {% if lock_content3  == 'products' %} 
+            {% assign key = field3 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+
+
+
+    {% assign wsaio_sorted_rule = wsaio_sorted_rule | split: ',' %}
+
+
+
+
+    <!-- ///////////////////////////////////Priority check code end /////////////////////////////////////////////////////// -->
+    {% assign deny_check_visiblity = 'allow' %}
+    {% assign  wsaio_content_allow = 'empty' %}
+    {% assign applied_condition = [] %}
+    {% assign  customer_allow = false %}
+    {% assign is_not_tag_condition = 'check' %}
+    {%- for field in  wsaio_sorted_rule  -%}
+
+    {% assign wsaio_rule = shop.metafields.wsaio_locks[field] %}
+    {% assign  is_customer = false %}
+
+    {% assign redirect_link = '' %}
+    {% assign wsaio_allow = false %}
+    {% assign wsaio__isBreak = false %}
+    {% assign wsaio__isEnabled = wsaio_rule.state %}
+    {% assign applies_to = wsaio_rule.manage_lock.applies_to %}
+    {% assign lock_content = wsaio_rule.manage_lock.content_name %}
+    {% assign redirect_to = wsaio_rule.manage_lock.redirect_to.custom_url_link %}
+    {% assign product_data = product %}
+    {% assign collection_data = collection %}
+    {% assign hide_other = wsaio_rule.manage_lock.hide_all_other_products %}
+ 
+    <script>console.log({{product_data | json}})</script>
+
+    {% if wsaio__isEnabled == "published"%}    
+
+
+    <!--========================Customers/Visitors lock applies to===================-->
+    <!--       .......        -->
+        {% case applies_to %}
+            {% assign  customer_group = 'false' %}
+            {% assign is_not_tag_condition = 'false' %}
+            {% when 'selected_customers' %}
+                    {% assign applies_tag_conditions = wsaio_rule.manage_lock.conditions %}
+                    {% assign  inner_group = 'check' %}
+                    {% for parent_conditions in applies_tag_conditions %}
+                        {% if inner_group != 'false' %}  
+                            {% assign check_condition = 'check' %}
+                            {% for inner_conditions in parent_conditions %} 
+                                    {% if customer %}
+                                      {% case inner_conditions.title %} 
+                                        {% when 'tag_with' or 'equal' %}
+                                                {% for customer_tag in customer.tags %}
+                                                {% assign customer_tags = customer_tag | downcase | strip  %}
+                                                    {% assign rule_tag = inner_conditions.value | downcase | strip  %}
+                                                    {% if customer_tags == rule_tag %}
+                                                    {% assign  check_condition = 'true' %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if check_condition == 'check' %}
+                                                    {% assign  check_condition = 'false' %}
+                                                {% endif %}
+                                        {% when 'not_equal' %}
+                                            {% for customer_tag in customer.tags %}
+                                            {% assign customer_tags = customer_tag | downcase | strip  %}
+                                                {% assign rule_tag = inner_conditions.value | downcase | strip  %}
+                                                    {% if customer_tags == rule_tag %}
+                                                    {% assign   check_condition = 'true' %}
+                                                    {% break %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if check_condition == 'true' %}
+                                                    {% assign   check_condition = 'false' %}
+                                                {% else %}
+                                                    {% assign   check_condition = 'true' %}
+                                                {% endif %}
+                                       {% endcase %}
+                                    {% endif %}
+                                    {% unless customer %}
+                                       {%  if inner_conditions.title == 'not_equal' %}
+                                               {% assign is_not_tag_condition = 'true' %}
+                                       {% endif %}
+                                    {% endunless %}
+                                    {% if check_condition == 'true' and check_condition != 'check' %}
+                                        {% assign  inner_group = 'true' %}
+                                    {% else %}
+                                        {% assign  inner_group = 'false' %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if inner_group != 'false' and inner_group != 'check'  %}
+                                        {% assign  customer_group = 'true' %}
+                                {% else %}
+                                        {% assign  customer_group = 'false' %}
+                                {% endif %}
+                            {% else %}
+                                {% assign  customer_group = 'false' %}
+                        {% endif %}
+                    {% endfor %}
+            {% when 'loggedin_customers' %}
+
+            {% if customer %}
+                {% assign  customer_group = 'true' %}
+            {% else %}
+                {% assign  customer_group = 'false' %}
+            {% endif %}
+        
+        {% else %}
+
+            {% assign  customer_group = 'true' %}
+
+        {% endcase %}
+
+        {% if customer_group == 'true' %}
+                {% assign  is_customer = true %}
+        {% endif %}
+
+
+        <!-- =======================================end====================================-->
+
+        <!-- =====================================Lock content============================= -->
+     
+        {% assign  access_option = wsaio_rule.manage_lock.access_permissions %}
+
+
+        {% if access_option == 'deny' %}
+                {% assign applied_condition = applied_condition | append: '$type##' %}
+                {% assign applied_condition = applied_condition | append: access_option %}
+                {% if is_customer or is_not_tag_condition == 'true' %}
+                        {% assign  deny_content_match = false %}
+                            {% case lock_content %}
+                                {% when 'products' %}
+                                    {% if template.name == 'product' %}
+                                            {% assign pro_handle = wsaio_rule.manage_lock.products.selections %}
+                                            {% for all_handles in pro_handle %}
+                                                {% if all_handles == product_data.handle %}
+                                                    {% assign  check_pro = true %}
+                                                    {% assign  deny_content_match = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                    {% endif %}
+                                {% when 'collections' %} 
+                                    {% if template.name == 'collection' %}
+                                        {% assign col_handle = wsaio_rule.manage_lock.collections.selections %}
+                                        {% for all_handles in col_handle %}
+                                        {% if all_handles == collection_data.handle %}
+                                            {% assign  deny_content_match = true %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    {% elsif template.name == 'product' %}
+                                        {% assign col_handle = wsaio_rule.manage_lock.collections.selections %}
+                                            {% for all_handles in col_handle %}
+                                            {% for pro_col_handle in product_data.collections %}
+                                            {% if all_handles == pro_col_handle.handle %}
+                                                {% assign  deny_content_match = true %}
+                                            {% endif %}
+                                            {% endfor %} 
+                                            {% endfor %} 
+                                        {% endif %}
+
+                                {% when 'entire_store' %}
+                                            {% assign  deny_content_match = true %}
+                                {% else %}
+                                        {% assign pages_url = wsaio_rule.manage_lock.content_custom_url %}
+                                        {% if routes.root_url == '/' %}
+                                           {% assign store_urls = shop.url | append: '/' %}
+                                         {% else %}
+                                           {% assign store_urls = shop.url | append: routes.root_url | append: '/' %}
+                                         {% endif %}
+
+                                        {% assign current_url = 'https://' | append: request.host | append: request.path %}
+                                        {% for page_url in pages_url %}
+                                            {% assign sub_url = store_urls | append: page_url.url %}
+                                            {% if sub_url == current_url %}
+                                                {% assign  deny_content_match = true %}
+                                            {% endif %}
+                                        {% endfor %}
+                            {% endcase %}
+                                {% if deny_content_match %}
+                                            {% assign applied_condition = applied_condition | append: '$access_msg##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.redirect_to.message %}
+                                            {% assign applied_condition = applied_condition | append: '$access_msg_loggin##' %}
+                                            {% assign applied_condition = applied_condition | append:  wsaio_rule.manage_lock.redirect_to.message_when_loggedin %}
+                                            {% assign applied_condition = applied_condition | append: '$access_redirect_check##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.redirect_to.login_url %}
+                                            {% assign applied_condition = applied_condition | append: '$access_redirect_link##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.redirect_to.custom_url_link %}
+                                            {% assign applied_condition = applied_condition | append: '$access_access_permissions##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.access_permissions %}
+                                            <script> var access__url  = "{{wsaio_rule.manage_lock.redirect_to.custom_url_link}}"</script>
+                                {% endif %}
+                                {% assign applied_condition = applied_condition | append: '$content##' %}
+                                {% assign applied_condition = applied_condition | append: deny_content_match %}
+                                {% assign applied_condition = applied_condition | append: '$customer##' %}
+                                {% assign applied_condition = applied_condition | append: is_customer %}
+                                {% assign applied_condition = applied_condition | append: '$is_not_tag_condition##' %}
+                                {% assign applied_condition = applied_condition | append: is_not_tag_condition %}
+
+                        {% endif %}
+                {% elsif access_option == 'access'%}  
+                    {% assign applied_condition = applied_condition | append: '$type##' %}
+                    {% assign applied_condition = applied_condition | append: access_option %}
+                    
+                        {% assign  access_content_match = false %}
+                            {% case lock_content %}
+                                {% when 'products' %}
+                                    {% assign product_matched = false %}
+                                    {% if template.name == 'product' %}
+                                            {% assign pro_handle = wsaio_rule.manage_lock.products.selections %}
+                                            {% for all_handles in pro_handle %}
+                                                {% if all_handles == product_data.handle %}
+                                                          {% assign product_matched = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                    {% endif %}
+                                    {% if product_matched %}
+                                           {% unless is_customer %}
+                                                    {% assign  access_content_match = true %}
+                                            {% endunless %}
+                                        {% else %}
+                                           {% if is_customer and hide_other and template.name == 'product' %}
+                                                    {% assign  access_content_match = true %}
+                                                   {% assign is_customer = false %}
+                                            {% endif %}
+                                        {% endif %}
+                                {% when 'collections' %} 
+                                    {% assign product_matched = false %}
+                                    {% if template.name == 'collection' %}
+                                        {% assign col_handle = wsaio_rule.manage_lock.collections.selections %}
+                                        {% for all_handles in col_handle %}
+                                        {% if all_handles == collection_data.handle %}
+                                                      {% assign product_matched = true %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    
+                                    {% elsif template.name == 'product' %}
+                                        {% assign col_handle = wsaio_rule.manage_lock.collections.selections %}
+                                            {% for all_handles in col_handle %}
+                                            {% for pro_col_handle in product_data.collections %}
+                                            {% if all_handles == pro_col_handle.handle %}
+                                                          {% assign product_matched = true %}
+                                            {% endif %}
+                                            {% endfor %} 
+                                            {% endfor %} 
+                                        {% endif %}
+                                      {% if product_matched %}
+                                             {% unless is_customer %}
+                                                      {% assign  access_content_match = true %}
+                                              {% endunless %}
+                                      {% else %}
+                                         {% if is_customer and hide_other %}
+                                             {% if template.name == 'collection' or template.name == 'product' %}
+                                                  {% assign  access_content_match = true %}
+                                                  {% assign is_customer = false %}
+                                               {% endif %}
+                                          {% endif %}
+                                      {% endif %}
+                                {% when 'entire_store' %}
+                                        {% assign access_permissions = wsaio_rule.manage_lock.access_permissions %}
+                                        {% unless is_customer %}
+                                        {% assign  access_content_match = true %}
+                                        {% endunless %}
+                                    
+                                {% else %}
+                                        {% assign pages_url = wsaio_rule.manage_lock.content_custom_url %}
+                                         {% if routes.root_url == '/' %}
+                                           {% assign store_urls = shop.url | append: '/' %}
+                                         {% else %}
+                                           {% assign store_urls = shop.url | append: routes.root_url | append: '/' %}
+                                         {% endif %}
+
+                                        {% assign current_url = 'https://' | append: request.host | append: request.path %}
+                                        {% for page_url in pages_url %}
+                                            {% assign sub_url = store_urls | append: page_url.url %}
+                                            {% if sub_url == current_url %}
+                                            {% unless is_customer %} {% assign  access_content_match = true %}
+                                                    {% endunless %}
+                                            {% endif %}
+                                        {% endfor %}
+                            {% endcase %}
+
+                                {% if access_content_match %}
+                                            {% assign applied_condition = applied_condition | append: '$access_msg##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.redirect_to.message %}
+                                            {% assign applied_condition = applied_condition | append: '$access_msg_loggin##' %}
+                                            {% assign applied_condition = applied_condition | append:  wsaio_rule.manage_lock.redirect_to.message_when_loggedin %}
+                                            {% assign applied_condition = applied_condition | append: '$access_redirect_check##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.redirect_to.login_url %}
+                                            {% assign applied_condition = applied_condition | append: '$access_redirect_link##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.redirect_to.custom_url_link %}
+                                            {% assign applied_condition = applied_condition | append: '$access_access_permissions##' %}
+                                            {% assign applied_condition = applied_condition | append: wsaio_rule.manage_lock.access_permissions %}
+                                            <script> var access__url  = "{{wsaio_rule.manage_lock.redirect_to.custom_url_link}}"</script>
+                                {% endif %}
+                                {% assign applied_condition = applied_condition | append: '$content##' %}
+                                {% assign applied_condition = applied_condition | append: access_content_match %}
+                                 {% assign applied_condition = applied_condition | append: '$customer##' %}
+                                {% assign applied_condition = applied_condition | append: is_customer %}
+                                {% assign applied_condition = applied_condition | append: '$is_not_tag_condition##' %}
+                                {% assign applied_condition = applied_condition | append: is_not_tag_condition %}
+ 
+                {% endif %}
+        
+
+
+        <!-- =======================================end====================================-->
+
+
+
+    {% endif %}
+    {% assign  wsaio_customer_allow = false %}
+    {% assign applied_condition = applied_condition | append: '*' %}
+    {% endfor %}
+    {% assign is_customers = '' %}
+    {% assign is_type = '' %}
+    {% assign is_content = '' %}
+    {% assign access_msg = '' %}
+    {% assign access_msg_loggin = '' %}
+    {% assign access_redirect_check = '' %}
+    {% assign access_redirect_link = '' %}
+    {% assign is_not_tag_condition_value = '' %}
+    {% assign applied_condition = applied_condition | split: '*' %}
+    {% for condition in applied_condition %}
+    {% assign individual_condition = condition | split: '$' %}
+    {% for inner_condition in individual_condition %}
+        {%  if inner_condition contains 'customer##' %}
+            {% assign is_customers = inner_condition | split:'customer##' %}
+        {%  elsif inner_condition contains 'is_not_tag_condition##'%}
+            {% assign is_not_tag_condition_value= inner_condition | split:'is_not_tag_condition##' %}
+        {%  elsif inner_condition contains 'type##'%}
+            {% assign is_type= inner_condition | split:'type##' %}
+        {%  elsif inner_condition contains 'content##'%}
+            {% assign is_content = inner_condition | split:'##' %}
+        {%  elsif inner_condition contains 'access_msg##'%}
+            {% assign is_access_msg = inner_condition | split:'##' %}
+        {%  elsif inner_condition contains 'access_msg_loggin##'%}
+            {% assign is_access_msg_loggin = inner_condition | split:'##' %}
+        {%  elsif inner_condition contains 'access_redirect_check##'%}
+            {% assign is_access_redirect_check = inner_condition | split:'##' %}
+        {%  elsif inner_condition contains 'access_redirect_link##'%}
+            {% assign is_access_redirect_link= inner_condition | split:'##' %}
+        {%  endif %}
+    {% endfor %}
+
+    {% if is_customers contains 'true' and is_type contains 'deny' and is_content contains 'true' %}
+        {% assign deny_check_visiblity = 'false' %}
+        {% assign access_msg = is_access_msg.last %}
+        {% assign access_msg_loggin = is_access_msg_loggin.last %}
+        {% assign access_redirect_check = is_access_redirect_check.last %}
+        {% assign access_redirect_link = is_access_redirect_link.last %}
+    {% elsif is_not_tag_condition_value contains 'true' and is_type contains 'deny' and is_content contains 'true' %}
+        {% assign deny_check_visiblity = 'false' %}
+        {% assign access_msg = is_access_msg.last %}
+        {% assign access_msg_loggin = is_access_msg_loggin.last %}
+        {% assign access_redirect_check = is_access_redirect_check.last %}
+        {% assign access_redirect_link = is_access_redirect_link.last %}
+    {% endif %}
+    {% if is_customers contains 'false' and is_type contains 'access' and is_content contains 'true' %}
+      {% unless is_not_tag_condition_value contains 'true' %}
+        {% assign access_check_visiblity = 'false' %}
+        {% assign access_msg = is_access_msg.last %}
+        {% assign access_msg_loggin = is_access_msg_loggin.last %}
+        {% assign access_redirect_check = is_access_redirect_check.last %}
+        {% assign access_redirect_link = is_access_redirect_link.last %}
+      {% endunless %}
+    {% endif %}
+    <!-- =====================================Overall condition check==================-->
+
+    {% assign currentpage_url = canonical_url | replace : shop.url,'' %}
+    {% assign pageURL_lock = true %}
+    {% if currentpage_url contains '/account' or currentpage_url contains '/pages/register' or currentpage_url contains '/challenge' or template == '/404' %}
+    {% assign pageURL_lock = false %}
+    {% endif %}
+
+    <script>
+        function checkLocal_redirect_link(){
+            $('.wsaio_manage_lock_msg a').each(function(){
+                var link = this.href.split(WSAIO.shopInfo.url)[1];
+                var updated_link = WSAIO.local_param_without_last_slash+link;
+                this.href = updated_link;
+            })
+        }
+         function checkLocal_custom_redirect_link(){
+                var url = '{{access_redirect_link}}';
+                if(url != ''){
+                   var link = url.split(WSAIO.shopInfo.url)[1];
+                    var updated_link = WSAIO.local_param_without_last_slash+link;
+                    if(window.location.href.indexOf(updated_link) == -1){
+                      window.location.href = updated_link ;
+                    }
+                }
+        }
+    </script>
+    
+    {% if deny_check_visiblity == 'false' %}
+                    {% if access_redirect_check contains 'custom_message' %}
+                            <script>
+                                $(document).ready(function(){
+                                        setTimeout(function(){
+                                            var msgs = "{{access_msg | newline_to_br | strip_newlines | replace: '"','\"' }}";
+                                            $(Message_selector).html('<p class="er_msg" style=" text-align:center;padding:10% 0;">'+msgs+'</p>');
+                                            checkLocal_redirect_link();
+                                        },200);
+                                })
+                            </script>
+                    {% elsif access_redirect_check contains 'specific_url'%}
+                                {% if access_redirect_link != currentpage_url and pageURL_lock %}
+                                <script>
+                                $(document).ready(function(){
+                                      checkLocal_custom_redirect_link()
+                                })
+                                </script>
+                                {% endif %}
+                    {% elsif access_redirect_check contains 'login_page' %}
+                            {% if access_redirect_link != currentpage_url and pageURL_lock %}
+                            {% if customer %}
+                                    <script>
+                                    $(document).ready(function(){
+                                    setTimeout(function(){
+                                        var msgs = "{{access_msg_loggin | newline_to_br | strip_newlines | replace: '"','\"' }}";
+                                        $(Message_selector).html('<p class="er_msg" style=" text-align:center;padding:10% 0;">'+msgs+'</p>')
+                                    },200);
+                                    })
+                                    </script>
+                                    {% else %}
+                                    <script>
+                                    $(document).ready(function(){
+                                    var urlss = WSAIO.local_param+"account/login";
+                                    window.location.replace( urlss );
+                                    })
+                                    </script>
+                                {% endif %}
+                                {% endif %}
+                    {% endif %}
+    {% elsif access_check_visiblity == 'false' %}
+                    {% if access_redirect_check contains 'custom_message' %}
+                        {% if pageURL_lock %}
+                            {% if customer %}
+                            <script>
+                            $(document).ready(function(){
+                                setTimeout(function(){
+                                    var msgs = "{{access_msg_loggin | newline_to_br | strip_newlines | replace: '"','\"' }}";
+                                    $(Message_selector).html('<p class="er_msg" style=" text-align:center;padding:10% 0;">'+msgs+'</p>')
+                                },200);
+                            })
+                            </script>
+                            {% else %}
+                            <script>
+                            $(document).ready(function(){
+                                setTimeout(function(){
+                                    var msgs = "{{access_msg | newline_to_br | strip_newlines | replace: '"','\"' }}";
+                                    $(Message_selector).html('<p class="er_msg" style=" text-align:center;padding:10% 0;">'+msgs+'</p>')
+                                    checkLocal_redirect_link();
+                                },200);
+                                })
+                            </script>
+                            {% endif %}
+                        {% endif %}
+                    {% elsif access_redirect_check contains 'specific_url'%}
+                        {% if access_redirect_link != currentpage_url and pageURL_lock %}
+                            {% if customer %}
+                            <script>
+                            $(document).ready(function(){
+                                setTimeout(function(){
+                                    var msgs = "{{access_msg_loggin | newline_to_br | strip_newlines | replace: '"','\"' }}";
+                                    $(Message_selector).html('<p class="er_msg" style=" text-align:center;padding:10% 0;">'+msgs+'</p>')
+                                },200);
+                            })
+                            </script>
+                            {% else %}
+                            <script>
+                            $(document).ready(function(){
+                                  checkLocal_custom_redirect_link()
+                            })
+                            </script>
+                            {% endif %}
+                        {% endif %}
+                        {% elsif access_redirect_check contains 'login_page' %}
+                            {% if access_redirect_link != currentpage_url and pageURL_lock %}
+                            {% if customer %}
+                                <script>
+                                    $(document).ready(function(){
+                                        setTimeout(function(){
+                                        var msgs = "{{access_msg_loggin | newline_to_br | strip_newlines | replace: '"','\"' }}";
+                                        $(Message_selector).html('<p class="er_msg" style=" text-align:center;padding:10% 0;">'+msgs+'</p>')
+                                        },200);
+                                    })
+                                </script>
+                                {% else %}
+                                <script>
+                                    $(document).ready(function(){
+                                        var urlss = WSAIO.local_param+"account/login";
+                                        window.location.replace( urlss );
+                                    })
+                                </script>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+        
+    {% endif %}
+
+    {% endfor %} 
+    <!-- =======================================end====================================-->
+
+{% endif %}

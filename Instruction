@@ -1,0 +1,6 @@
+                 Instructions: https://imagelink.click/xoiTOb.png
+                 
+Include file using this code  ::   {% include 'wsaio_manage_lock.liquid' %}
+wsaio_manage_lock.liquid 
+wsaio_content_lock.liquid 
+Content lock condition        ::  {% include 'wsaio_content_lock'  %}  {% if check_visiblity == 'true' or check_visiblity == 'allow'%} < html > {% endif %} 

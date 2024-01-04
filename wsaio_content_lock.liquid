@@ -1,0 +1,335 @@
+{% assign start_manageLock = true %}
+{% if request.design_mode %}
+  {% assign start_manageLock = false %}
+{% endif %}  
+
+{% if start_manageLock %}
+
+
+    {% assign wsaio_sorted_rule =  %}
+    {% assign applied_condition =  %}
+
+    {%- for field1 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule1 = field1 | last %}
+        {% assign lock_content1 = wsaio_rule1.manage_lock.content_name %}
+        {% assign wsaio__isEnabled1 = wsaio_rule1.state %}
+        {% if wsaio__isEnabled1 == 'published' %}
+        {% assign applies_to1 = wsaio_rule1.manage_lock.applies_to %}
+        {% if applies_to1 == 'all_customers' %}
+            {% if lock_content1  == 'entire_store' %}
+                {% assign key = field1 | first %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field2 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule2 = field2 | last %}
+        {% assign wsaio__isEnabled2 = wsaio_rule2.state %}
+        {% if wsaio__isEnabled2 == 'published' %}
+        {% assign applies_to2 = wsaio_rule2.manage_lock.applies_to %}
+        {% if applies_to2 == 'all_customers' %}
+            {% assign lock_content2 = wsaio_rule2.manage_lock.content_name %}
+            {% if lock_content2  == 'collections' %}
+                {% assign key = field2 | first %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+                {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field3 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule3 = field3 | last %}
+        {% assign wsaio__isEnabled3 = wsaio_rule3.state %}
+        {% if wsaio__isEnabled3 == 'published' %}
+        {% assign applies_to3 = wsaio_rule3.manage_lock.applies_to %}
+        {% if applies_to3 == 'all_customers' %}
+            {% assign lock_content3 = wsaio_rule3.manage_lock.content_name %}
+            {% if lock_content3  == 'products' %}
+            {% assign key = field3 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {%- for field1 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule1 = field1 | last %}
+        {% assign lock_content1 = wsaio_rule1.manage_lock.content_name %}
+        {% assign wsaio__isEnabled1 = wsaio_rule1.state %}
+        {% if wsaio__isEnabled1 == 'published' %}
+        {% assign applies_to1 = wsaio_rule1.manage_lock.applies_to %}
+        {% if applies_to1 == 'loggedin_customers' %}
+            {% if lock_content1  == 'entire_store' %}
+            {% assign key = field1 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field2 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule2 = field2 | last %}
+        {% assign wsaio__isEnabled2 = wsaio_rule2.state %}
+        {% if wsaio__isEnabled2 == 'published' %}
+        {% assign applies_to2 = wsaio_rule2.manage_lock.applies_to %}
+        {% if applies_to2 == 'loggedin_customers' %}
+            {% assign lock_content2 = wsaio_rule2.manage_lock.content_name %}
+            {% if lock_content2  == 'collections' %}
+            {% assign key = field2 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field3 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule3 = field3 | last %}
+        {% assign wsaio__isEnabled3 = wsaio_rule3.state %}
+        {% if wsaio__isEnabled3 == 'published' %}
+        {% assign applies_to3 = wsaio_rule3.manage_lock.applies_to %}
+        {% if applies_to3 == 'loggedin_customers' %}
+            {% assign lock_content3 = wsaio_rule3.manage_lock.content_name %}
+            {% if lock_content3  == 'products' %}
+            {% assign key = field3 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+
+
+    {%- for field1 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule1 = field1 | last %}
+        {% assign lock_content1 = wsaio_rule1.manage_lock.content_name %}
+        {% assign wsaio__isEnabled1 = wsaio_rule1.state %}
+        {% if wsaio__isEnabled1 == 'published' %}
+        {% assign applies_to1 = wsaio_rule1.manage_lock.applies_to %}
+        {% if applies_to1 == 'selected_customers' %}
+            {% if lock_content1  == 'entire_store' %}
+            {% assign key = field1 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field2 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule2 = field2 | last %}
+        {% assign wsaio__isEnabled2 = wsaio_rule2.state %}
+        {% if wsaio__isEnabled2 == 'published' %}
+        {% assign applies_to2 = wsaio_rule2.manage_lock.applies_to %}
+        {% if applies_to2 == 'selected_customers' %}
+            {% assign lock_content2 = wsaio_rule2.manage_lock.content_name %}
+            {% if lock_content2  == 'collections' %}
+            {% assign key = field2 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {%- for field3 in  shop.metafields.wsaio_locks  -%}
+        {% assign wsaio_rule3 = field3 | last %}
+        {% assign wsaio__isEnabled3 = wsaio_rule3.state %}
+        {% if wsaio__isEnabled3 == 'published' %}
+        {% assign applies_to3 = wsaio_rule3.manage_lock.applies_to %}
+        {% if applies_to3 == 'selected_customers' %}
+            {% assign lock_content3 = wsaio_rule3.manage_lock.content_name %}
+            {% if lock_content3  == 'products' %} 
+            {% assign key = field3 | first %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: key %}
+            {% assign wsaio_sorted_rule = wsaio_sorted_rule | append: ',' %}
+            {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% assign wsaio_sorted_rule = wsaio_sorted_rule | split: ',' %}
+
+
+    <!-- ///////////////////////////////////Priority check code end /////////////////////////////////////////////////////// -->
+
+
+    {% assign product_show = 'check' %}
+    {% assign product_hide = 'check' %}
+    {% assign overall_customer = false %} 
+    {% assign overall_product = false %} 
+    {% assign check_visiblity = 'allow' %}
+    {%- for field in  wsaio_sorted_rule  -%}
+
+        {% assign wsaio_rule = shop.metafields.wsaio_locks[field] %}
+          {% assign wsaio__isEnabled = wsaio_rule.state %}
+          {% if wsaio__isEnabled == "published"%}   
+              {% assign applies_to = wsaio_rule.manage_lock.applies_to %}
+              {% assign lock_content = wsaio_rule.manage_lock.content_name %}
+              {% assign hide_other = wsaio_rule.manage_lock.hide_all_other_products %}
+              {% assign is_customer = false %}
+              {% assign access_option = wsaio_rule.manage_lock.access_permissions %}
+              {% assign hide_product_listing = wsaio_rule.manage_lock.products.hide_product_listing %}
+              {% assign hide_from_collections = wsaio_rule.manage_lock.collections.hide_from_collections %}
+              {% assign rule_product_handle = wsaio_rule.manage_lock.products.selections %}
+              {% assign store_product = product %}
+              {% assign product_match = false %}
+              {% assign rule_collection_product_handle = wsaio_rule.manage_lock.collections.selections %}
+            
+                    <!--========================Customers/Visitors lock applies to===================-->
+                    <!--       .......        -->
+                        {% case applies_to %}
+                            {% assign  customer_group = 'false' %}
+                            {% assign is_not_tag_condition = 'false' %}
+                            {% when 'selected_customers' %}
+                                    {% assign applies_tag_conditions = wsaio_rule.manage_lock.conditions %}
+                                    {% assign  inner_group = 'check' %}
+                                    {% for parent_conditions in applies_tag_conditions %}
+                                        {% if inner_group != 'false' %}  
+                                            {% assign check_condition = 'check' %}
+                                            {% for inner_conditions in parent_conditions %} 
+                                                    {% if customer %}
+                                                        {% case inner_conditions.title %} 
+                                                        {% when 'tag_with' or 'equal' %}
+                                                                {% for customer_tag in customer.tags %}
+                                                                {% assign customer_tags = customer_tag | downcase | strip  %}
+                                                                {% assign rule_tag = inner_conditions.value | downcase | strip  %}
+                                                                    {% if customer_tags == rule_tag %}
+                                                                    {% assign  check_condition = 'true' %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                {% if check_condition == 'check' %}
+                                                                    {% assign  check_condition = 'false' %}
+                                                                {% endif %}
+                                                        {% when 'not_equal' %}
+                                                            {% for customer_tag in customer.tags %}
+                                                            {% assign customer_tags = customer_tag | downcase | strip  %}
+                                                            {% assign rule_tag = inner_conditions.value | downcase | strip  %}
+                                                                    {% if customer_tags == rule_tag %}
+                                                                    {% assign   check_condition = 'true' %}
+                                                                    {% break %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                {% if check_condition == 'true' %}
+                                                                    {% assign   check_condition = 'false' %}
+                                                                {% else %}
+                                                                    {% assign   check_condition = 'true' %}
+                                                                {% endif %}
+                                                    {% endcase %}
+                                                    {% endif %}
+                                                    {% unless customer %}
+                                                        {%  if inner_conditions.title == 'not_equal' %}
+                                                                {% assign is_not_tag_condition = 'true' %}
+                                                        {% endif %}
+                                                    {% endunless %}
+                                                    {% if check_condition == 'true' and check_condition != 'check' %}
+                                                        {% assign  inner_group = 'true' %}
+                                                    {% else %}
+                                                        {% assign  inner_group = 'false' %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if inner_group != 'false' and inner_group != 'check'  %}
+                                                        {% assign  customer_group = 'true' %}
+                                                {% else %}
+                                                        {% assign  customer_group = 'false' %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% assign  customer_group = 'false' %}
+                                        {% endif %}
+                                    {% endfor %}
+                            {% when 'loggedin_customers' %}
+                
+                            {% if customer %}
+                                {% assign  customer_group = 'true' %}
+                            {% else %}
+                                {% assign  customer_group = 'false' %}
+                            {% endif %}
+                        
+                        {% else %}
+                            {% assign  customer_group = 'true' %}
+                        {% endcase %}
+                
+                        {% if customer_group == 'true' %}
+                                {% assign  is_customer = true %}
+                                 {% assign overall_customer = true %} 
+                        {% endif %}
+
+                        <!-- =====================================Lock content============================= -->
+            
+           
+                         {% case lock_content %}
+                                  {% when 'products' %}
+                                      {% if hide_product_listing and template.name != 'list-collections' %}
+                                          {% for all_handles in rule_product_handle %}
+                                            {% if all_handles == store_product.handle %}
+                                                {% assign product_match = true %}
+                                                {% assign overall_product = product_match %} 
+                                            {% endif %}
+                                          {% endfor %}
+                                      {% else %}
+                                              {% assign  forcely_show = true %}
+                                      {% endif %}   
+                                  {% when 'collections' %}
+                                      {% if hide_from_collections and template.name == 'list-collections'  %}
+                                              {% for all_handles in rule_collection_product_handle %}
+                                                {% if all_handles == collection_data.handle %}
+                                                     {% assign product_match = true %}
+                                                     {% assign overall_product = product_match %} 
+                                                {% endif %}
+                                              {% endfor %}
+                                      {% elsif hide_product_listing %}
+                                              {% for all_handles in rule_collection_product_handle %}
+                                                  {% for collection_pro in collections[all_handles].products %}
+                                                      {% if collection_pro.handle == store_product.handle %}
+                                                         {% assign product_match = true %}
+                                                         {% assign overall_product = product_match %} 
+                                                      {% endif %}
+                                                  {% endfor %}
+                                              {% endfor %}
+                                      {% endif %}
+                         {% endcase %}
+           
+
+                         {% if access_option == 'deny' %}
+                              {% if product_match and is_customer %}
+                                   {% assign product_hide = 'true' %}
+                              {% elsif product_match and is_customer == false and product_hide != 'true' %}
+                                   {% assign product_hide = 'false' %}
+                              {% elsif product_match == false and is_customer and product_hide != 'true' %}
+                                  {% assign product_hide = 'false' %} 
+                              {% endif %}
+                         {% elsif access_option == 'access' %}
+                              {% if product_match and is_customer %}
+                                   {% assign product_show = 'true' %}
+                              {% elsif product_match and  is_customer == false and product_show != 'true' %}
+                                   {% assign product_show = 'false' %}
+                              {% elsif product_match == false and is_customer and product_show != 'true' %}
+                                  {% if hide_other == false %} {% assign product_show = 'true' %} {% else %} {% assign product_show = 'false' %} {% endif %}
+                              {% endif %}
+                        {% endif %} 
+          {% endif %}
+    {% endfor %}
+
+
+    {% unless overall_customer %}
+      {% unless overall_product %}
+          {% assign product_show = 'true' %}
+      {% endunless %}
+    {% endunless %}
+
+
+    {% if product_hide == 'true' %}
+       {% assign check_visiblity  = 'false' %}
+    {% endif %}
+  
+    {% if product_show == 'true' %}
+       {% assign check_visiblity  = 'true' %}
+    {% elsif product_show == 'false' %}
+       {% assign check_visiblity  = 'false' %}
+    {% endif %}
+
+  
+{% endif %}
+
+    
